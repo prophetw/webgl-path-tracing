@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html><head>
   <title>WebGL Path Tracing</title>
-  <style type="text/css"><!--
-
+  <style type="text/css">
 body {
   max-width: 900px;
   padding: 30px;
@@ -63,10 +62,12 @@ a {
   text-align: center;
 }
 
-  --></style>
+  </style>
   <script type="text/javascript" src="sylvester.src.js"></script>
   <script type="text/javascript" src="glUtils.js"></script>
-  <script type="text/javascript" src="webgl-path-tracing.js"></script>
+  <script type="module" src="./webgl-path-tracing.js"></script>
+  <script type="text/javascript" src="https://spectorcdn.babylonjs.com/spector.bundle.js"></script>
+
 </head><body>
   <h1>WebGL Path Tracing</h1>
 
@@ -122,4 +123,18 @@ a {
 
   <p>The entire scene is dynamically compiled into a GLSL shader.&nbsp; Everything can be repositioned using the current shader, but any geometry or material change means a recompilation.&nbsp; To calculate a pixel color, a ray is shot into the scene and allowed to bounce around five times.&nbsp; At each bounce, the direct light incoming at that point (including shadows) is multiplied by all previous material colors and accumulated.&nbsp; Soft shadows are achieved by randomly jittering the light position per-pixel.&nbsp; The path tracing solution will only completely converge if your browser supports the OES_texture_float extension.</p>
   <p id="footer">Made by <a href="/">Evan Wallace</a> in 2010</p>
+
+  <script type="text/javascript">
+        spector = new window.SPECTOR.Spector();
+        spector.spyCanvas();
+        spector.fullCapture = true;
+        window.spector = spector;
+        if (!spector.resultView) {
+            spector.getResultUI();
+            spector.onCapture.add((capture) => {
+                spector.resultView.display();
+                spector.resultView.addCapture(capture);
+            });
+        }
+  </script>
 </body></html>
